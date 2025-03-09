@@ -1,0 +1,17 @@
+app:
+  jwt:
+    secret: iNa0fyrTACIZxkT2fu9kET4FtF1BJbIviNa0fyrTACIZxkT2fu9kET4FtF1BJbIv
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+
+logging:
+  level:
+    web: DEBUG
+
+spring:
+  profiles:
+    active: dev
+
