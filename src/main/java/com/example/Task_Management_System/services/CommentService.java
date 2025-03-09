@@ -1,4 +1,4 @@
-package com.example.Task_Management_System.service;
+package com.example.Task_Management_System.services;
 
 import com.example.Task_Management_System.dto.CommentReq;
 import com.example.Task_Management_System.dto.CommentResp;

@@ -1,8 +1,8 @@
-package com.example.Task_Management_System.controller;
+package com.example.Task_Management_System.controllers;
 
 import com.example.Task_Management_System.dto.CommentReq;
 import com.example.Task_Management_System.model.Comment;
-import com.example.Task_Management_System.service.CommentService;
+import com.example.Task_Management_System.services.CommentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
