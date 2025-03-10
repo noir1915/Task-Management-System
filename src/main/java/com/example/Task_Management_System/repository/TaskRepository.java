@@ -1,7 +1,6 @@
 package com.example.Task_Management_System.repository;
 
-import com.example.Task_Management_System.model.Priority;
-import com.example.Task_Management_System.model.Status;
+import com.example.Task_Management_System.model.Task.Priority;
 import com.example.Task_Management_System.model.Task;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +21,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findAllByExecutorId(Long executorId, Pageable pageable);
 
-    List<Task> findAllByStatus(Status status, Pageable pageable);
+    List<Task> findAllByStatus(Task.Status status, Pageable pageable);
 
     List<Task> findAllByPriority(Priority priority, Pageable pageable);
 
@@ -33,7 +32,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             "(:priority IS NULL OR t.priority = :priority)")
     List<Task> findByCriteria(@Param("authorId") Long authorId,
                               @Param("executorId") Long executorId,
-                              @Param("status") Status status,
+                              @Param("status") Task.Status status,
                               @Param("priority") Priority priority,
                               Pageable pageable);
 

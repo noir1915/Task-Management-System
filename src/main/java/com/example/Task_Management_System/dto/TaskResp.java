@@ -1,7 +1,6 @@
 package com.example.Task_Management_System.dto;
 
-import com.example.Task_Management_System.model.Priority;
-import com.example.Task_Management_System.model.Status;
+import com.example.Task_Management_System.model.Task;
 import lombok.*;
 
 @Setter
@@ -12,8 +11,8 @@ public class TaskResp {
     private Long id;
     private String title;
     private String description;
-    private Status status;
-    private Priority priority;
+    private Task.Status status;
+    private Task.Priority priority;
     private String author;
     private String executor;
     private String comments;

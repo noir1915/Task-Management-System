@@ -1,7 +1,7 @@
 package com.example.Task_Management_System.dto;
 
 
-import com.example.Task_Management_System.model.Role;
+import com.example.Task_Management_System.model.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -29,6 +29,6 @@ public class UserReq {
     @NotBlank
     @Size(min=3, max=20)
     private String password;
-    private Role role;
+    private User.Role role;
 }
 

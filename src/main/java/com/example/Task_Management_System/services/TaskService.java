@@ -3,17 +3,13 @@ package com.example.Task_Management_System.services;
 import com.example.Task_Management_System.dto.TaskReq;
 import com.example.Task_Management_System.dto.TaskResp;
 import com.example.Task_Management_System.exception.CustomPermissionException;
-import com.example.Task_Management_System.model.Priority;
-import com.example.Task_Management_System.model.Status;
+import com.example.Task_Management_System.model.Task.Priority;
 import com.example.Task_Management_System.model.Task;
 import com.example.Task_Management_System.model.User;
 import com.example.Task_Management_System.repository.TaskRepository;
 import com.example.Task_Management_System.repository.UserRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
-import org.hibernate.Session;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -66,7 +62,7 @@ public class TaskService {
         }
 
         newTask.setAuthor(authorUser);
-        newTask.setCreatedAt(new Date());
+        newTask.setCreated(new Date());
 
         return repository.save(newTask);
     }
@@ -88,7 +84,7 @@ public class TaskService {
         response.setDescription(task.getDescription());
         response.setStatus(task.getStatus());
         response.setPriority(task.getPriority());
-        response.setCreatedAt(this.toLocalDateTime(task.getCreatedAt()));
+        response.setCreatedAt(this.toLocalDateTime(task.getCreated()));
         response.setUpdatedAt(this.toLocalDateTime(task.getUpdatedAt()));
         if (Hibernate.isInitialized(task.getAuthor())) {
             User author = task.getAuthor();
@@ -118,7 +114,7 @@ public class TaskService {
         return response;
     }
 
-    public List<TaskResp> findByCriteria(Long authorId, Long executorId, Status status, Priority priority, Pageable pageable) {
+    public List<TaskResp> findByCriteria(Long authorId, Long executorId, Task.Status status, Priority priority, Pageable pageable) {
         List<Task> taskList = repository.findByCriteria(authorId, executorId, status, priority, pageable);
         return taskList.stream().map(this::toResponse).toList();
     }
@@ -167,7 +163,7 @@ public class TaskService {
 
         HashSet<String> fieldsChanged = fromDb.fieldsChanged(newTask);
 
-        // Author can update any field except "id", "authorId", "createdAt" and "updatedAt"
+        // Author can update any field except "id", "authorId", "created" and "updatedAt"
         // Executor can update only "status" field
         if (!isAuthor) {
             if (!isExecutor) throw new CustomPermissionException("You have no permission to update this task: " + id);
@@ -223,7 +219,7 @@ public class TaskService {
         return taskList.stream().map(this::toResponse).toList();
     }
 
-    public List<TaskResp> findAllByStatus(Status status, Pageable pageable) {
+    public List<TaskResp> findAllByStatus(Task.Status status, Pageable pageable) {
         List<Task> taskList = repository.findAllByStatus(status, pageable);
         return taskList.stream().map(this::toResponse).toList();
     }

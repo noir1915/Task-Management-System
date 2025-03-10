@@ -96,21 +96,26 @@ public class User implements UserDetails {
         return true;
     }
 
+    public enum Role{
+        USER,
+        ADMIN,  // Only Admin can delete Users
+    }
 
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
-//            return false;
-//        User user = (User) o;
-//        return Objects.equals(email, user.getEmail());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(this.email);
-//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+            return false;
+        User user = (User) o;
+        return Objects.equals(email, user.getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.email);
+    }
 
     @Override
     public String toString() {

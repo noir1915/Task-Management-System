@@ -2,8 +2,7 @@ package com.example.Task_Management_System.controllers;
 
 import com.example.Task_Management_System.dto.TaskReq;
 import com.example.Task_Management_System.dto.TaskResp;
-import com.example.Task_Management_System.model.Priority;
-import com.example.Task_Management_System.model.Status;
+import com.example.Task_Management_System.model.Task.Priority;
 import com.example.Task_Management_System.model.Task;
 import com.example.Task_Management_System.services.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -80,10 +79,10 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.OK).body("Task updated successfully: " + updatedTask);
     }
 
-    // GET /tasks/by-author/2?authorId=1&page=0&size=10&sort=createdAt,desc
+    // GET /tasks/by-author/2?authorId=1&page=0&size=10&sort=created,desc
     @GetMapping("/by-author/{authorId}")
     public ResponseEntity<?> finAllByAuthorId(@PathVariable("authorId") Long authorId,
-                                              @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
+                                              @PageableDefault(page = 0, size = 10, sort = "created", direction = Sort.Direction.DESC)
                                               Pageable pageable) {
 
         List<TaskResp> fromDb = service.findAllByAuthorId(authorId, pageable);
@@ -93,7 +92,7 @@ public class TaskController {
 
     @GetMapping("/by-executor/{executorId}")
     public ResponseEntity<?> finAllByExecutorId(@PathVariable("executorId") Long executorId,
-                                                @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
+                                                @PageableDefault(page = 0, size = 10, sort = "created", direction = Sort.Direction.DESC)
                                                 Pageable pageable) {
 
         List<TaskResp> fromDb =service.findAllByExecutorId(executorId, pageable);
@@ -102,8 +101,8 @@ public class TaskController {
     }
 
     @GetMapping("/by-status/{status}")
-    public ResponseEntity<?> finAllByStatus(@PathVariable("status") Status status,
-                                            @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
+    public ResponseEntity<?> finAllByStatus(@PathVariable("status") Task.Status status,
+                                            @PageableDefault(page = 0, size = 10, sort = "created", direction = Sort.Direction.DESC)
                                             Pageable pageable) {
 
         List<TaskResp> fromDb =service.findAllByStatus(status, pageable);
@@ -112,8 +111,8 @@ public class TaskController {
     }
 
     @GetMapping("/by-priority/{priority}")
-    public ResponseEntity<?> finAllByPriority(@PathVariable("priority") Priority priority,
-                                              @PageableDefault(page = 0, size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
+    public ResponseEntity<?> finAllByPriority(@PathVariable("priority") Task.Priority priority,
+                                              @PageableDefault(page = 0, size = 10, sort = "created", direction = Sort.Direction.DESC)
                                               Pageable pageable) {
 
         List<TaskResp> fromDb = service.findAllByPriority(priority, pageable);
@@ -129,8 +128,8 @@ public class TaskController {
     @GetMapping("/criteria")
     public ResponseEntity<?> findByCriteria(@RequestParam(required = false) Long authorId,
                                      @RequestParam(required = false) Long executorId,
-                                     @RequestParam(required = false) Status status,
-                                     @RequestParam(required = false) Priority priority,
+                                     @RequestParam(required = false) Task.Status status,
+                                     @RequestParam(required = false) Task.Priority priority,
                                             Pageable pageable) {
         List<TaskResp> fromDb = service.findByCriteria(authorId, executorId, status, priority, pageable);
         return ResponseEntity.ok(fromDb);

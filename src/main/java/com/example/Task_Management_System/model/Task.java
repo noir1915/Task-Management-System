@@ -61,7 +61,7 @@ public class Task {
     private List<Comment> comments = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Date created;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
@@ -77,6 +77,17 @@ public class Task {
         return fieldsList;
     }
 
+    public enum Status{
+        ON_HOLD,
+        IN_PROGRESS,
+        COMPLETED,
+    }
+
+    public enum Priority{
+        HIGH,
+        REGULAR,
+        LOW,
+    }
 
 
 
@@ -97,20 +108,20 @@ public class Task {
         this.executor = executor;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
-//            return false;
-//        Task task = (Task) o;
-//        return Objects.equals(this.author.getId(), task.author.getId()) &&
-//                Objects.equals(this.createdAt, task.getCreatedAt());
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(this.authorId, createdAt);  // this.author.getId()
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+            return false;
+        Task task = (Task) o;
+        return Objects.equals(this.author.getId(), task.author.getId()) &&
+                Objects.equals(this.created, task.getCreated());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.authorId, created);  // this.author.getId()
+    }
 
     @Override
     public String toString() {
@@ -122,7 +133,7 @@ public class Task {
                 "priority = " + priority + ", " +
                 "author = " + authorId + ", " +  //  author.getId()
                 "executor = " + executorId + ", " + // (executor != null ? executor.getId() : null)
-                "created = " + createdAt + ", " +
+                "created = " + created + ", " +
                 "updatedAt = " + updatedAt + ")";
     }
 }

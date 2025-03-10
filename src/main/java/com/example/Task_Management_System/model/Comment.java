@@ -56,21 +56,21 @@ public class Comment {
         this.task = task;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
-//            return false;
-//        Comment comment = (Comment) o;
-//        return Objects.equals(this.author.getId(), comment.author.getId()) &&  // author.getId() or authorId
-//                Objects.equals(this.content, comment.getContent()) &&
-//                Objects.equals(created, comment.getCreated());
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+            return false;
+        Comment comment = (Comment) o;
+        return Objects.equals(this.author.getId(), comment.author.getId()) &&  // author.getId() or authorId
+                Objects.equals(this.content, comment.getContent()) &&
+                Objects.equals(created, comment.getCreated());
+    }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(authorId, content, created);
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(authorId, content, created);
+    }
 
     @Override
     public String toString() {
