@@ -62,7 +62,7 @@ public class TaskService {
         }
 
         newTask.setAuthor(authorUser);
-        newTask.setCreated(new Date());
+        newTask.setCreatedAt(new Date());
 
         return repository.save(newTask);
     }
@@ -84,7 +84,7 @@ public class TaskService {
         response.setDescription(task.getDescription());
         response.setStatus(task.getStatus());
         response.setPriority(task.getPriority());
-        response.setCreatedAt(this.toLocalDateTime(task.getCreated()));
+        response.setCreatedAt(this.toLocalDateTime(task.getCreatedAt()));
         response.setUpdatedAt(this.toLocalDateTime(task.getUpdatedAt()));
         if (Hibernate.isInitialized(task.getAuthor())) {
             User author = task.getAuthor();
@@ -163,7 +163,7 @@ public class TaskService {
 
         HashSet<String> fieldsChanged = fromDb.fieldsChanged(newTask);
 
-        // Author can update any field except "id", "authorId", "created" and "updatedAt"
+        // Author can update any field except "id", "authorId", "createdAt" and "updatedAt"
         // Executor can update only "status" field
         if (!isAuthor) {
             if (!isExecutor) throw new CustomPermissionException("You have no permission to update this task: " + id);

@@ -16,7 +16,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-#  to prevent loading data.sql
+  #  to prevent loading data.sql
   sql:
     init:
       mode: never

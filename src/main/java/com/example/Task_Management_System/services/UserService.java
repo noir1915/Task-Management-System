@@ -11,6 +11,7 @@ import com.example.Task_Management_System.repository.TaskRepository;
 import com.example.Task_Management_System.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
+
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -37,7 +38,7 @@ public class UserService {
 
     private final AuthenticationManager authenticationManager;
 
-    public Long register(UserReq userReq) {
+    public Long register(UserReq userReq){
 
         User user = this.mapDtoToUser(userReq);
 
@@ -51,7 +52,7 @@ public class UserService {
         return savedUser.getId();
     }
 
-    public AuthResponse login(AuthRequest authRequest) {
+    public AuthResponse login(AuthRequest authRequest){
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authRequest.getEmail(),
@@ -70,7 +71,7 @@ public class UserService {
     // we need 3 calls here to avoid MultipleBagFetchException and Cartesian product
     @Cacheable(value = "user_resp", key = "#id")
     @Transactional(readOnly = true)
-    public UserResp getById(Long id) {
+    public UserResp getById(Long id){
         // all 3 users merged in one persistence context
         User user = repository.findByIdWithTasks(id).orElseThrow(
                 () -> new NoSuchElementException("There is no User with id: " + id)
@@ -80,14 +81,14 @@ public class UserService {
         return this.toResponse(user2);
     }
 
-    public UserResp toResponse(User user) {
+    public UserResp toResponse(User user){
         UserResp resp = new UserResp();
         resp.setId(user.getId());
         resp.setFirstName(user.getFirstName());
         resp.setLastName(user.getLastName());
         resp.setEmail(user.getEmail());
         resp.setRole(user.getRole());
-        if (Hibernate.isInitialized(user.getAuthoredTasks())) {
+        if (Hibernate.isInitialized( user.getAuthoredTasks() )) {
             List<Task> tasks = user.getAuthoredTasks();
             List<String> taskList = new ArrayList<>();
             for (Task t : tasks) {
@@ -97,7 +98,7 @@ public class UserService {
         } else {
             resp.setAsAuthor(List.of("undefined: loaded lazily"));
         }
-        if (Hibernate.isInitialized(user.getExecutedTasks())) {
+        if (Hibernate.isInitialized( user.getExecutedTasks() )) {
             List<Task> tasks = user.getExecutedTasks();
             List<String> taskList = new ArrayList<>();
             for (Task t : tasks) {
@@ -107,7 +108,7 @@ public class UserService {
         } else {
             resp.setAsExecutor(List.of("undefined: loaded lazily"));
         }
-        if (Hibernate.isInitialized(user.getComments())) {
+        if (Hibernate.isInitialized( user.getComments() )) {
             List<Comment> comments = user.getComments();
             List<String> commentList = new ArrayList<>();
             for (Comment c : comments) {
@@ -122,12 +123,12 @@ public class UserService {
         return resp;
     }
 
-    public User mapDtoToUser(UserReq userReq) {
+    public User mapDtoToUser(UserReq userReq){
         return User.builder()
                 .firstName(userReq.getFirstName())
                 .lastName(userReq.getLastName())
                 .email(userReq.getEmail())
-                .password(encoder.encode(userReq.getPassword()))
+                .password( encoder.encode( userReq.getPassword() ) )
                 .role(userReq.getRole())  // or set constant role like "USER"
                 .build();
     }
@@ -164,11 +165,11 @@ public class UserService {
     })
     public UserResp updateUser(UserReq newUser, Authentication auth) {
         User current = (User) auth.getPrincipal();
-        User fromDb = repository.findById(current.getId()).orElseThrow();
+        User fromDb = repository.findById( current.getId()).orElseThrow();
         fromDb.setFirstName(newUser.getFirstName());
         fromDb.setLastName(newUser.getLastName());
         fromDb.setEmail(newUser.getEmail());
-        fromDb.setPassword(encoder.encode(newUser.getPassword()));
+        fromDb.setPassword( encoder.encode( newUser.getPassword() ));
         fromDb.setRole(newUser.getRole());
         User saved = repository.save(fromDb);
         return this.toResponse(saved);

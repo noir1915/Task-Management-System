@@ -56,7 +56,7 @@ public class DataLoader implements CommandLineRunner {
                 .description("The first Task from CommandLineRunner")
                 .status(Task.Status.IN_PROGRESS)
                 .priority(Task.Priority.HIGH)
-                .created(new Date())
+                .createdAt(new Date())
                 .build();
         Task task_1Saved = taskRepository.save(task_1);
         System.out.println("Task_1 saved, id: " + task_1Saved.getId());
@@ -68,7 +68,7 @@ public class DataLoader implements CommandLineRunner {
                 .description("Second Task with Admin as executor from CommandLineRunner")
                 .status(Task.Status.IN_PROGRESS)
                 .priority(Task.Priority.HIGH)
-                .created(new Date())
+                .createdAt(new Date())
                 .build();
         Task task_2Saved = taskRepository.save(task_2);
         System.out.println("Task_2 saved, id: " + task_2Saved.getId());
@@ -77,13 +77,13 @@ public class DataLoader implements CommandLineRunner {
                 .task(task_1Saved)
                 .author(savedAdmin)
                 .content("First comment from 1 to the task 1")
-                .created(new Date())
+                .createdAt(new Date())
                 .build();
         var comment_2 = Comment.builder()
                 .task(task_2Saved)
                 .author(savedUser)
                 .content("Second comment from 2 to the task 2")
-                .created(new Date())
+                .createdAt(new Date())
                 .build();
         Comment comment_1saved = commentRepository.save(comment_1);
         Comment comment_2saved = commentRepository.save(comment_2);

@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/comments")
 @RequiredArgsConstructor
-@SecurityRequirement(name = "JWT")// вместо JWT Bearer
+@SecurityRequirement(name = "JWT Bearer")
 public class CommentController {
     private final CommentService service;
 
     @PostMapping("/create")
     public ResponseEntity<?> createdComment(CommentReq comment, Authentication authentication) {
         Comment createComment = service.create(comment, authentication);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Comment created with id: " + createComment.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body("Comment createdAt with id: " + createComment.getId());
     }
 }

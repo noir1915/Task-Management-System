@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder // а нужен ли здесь Builder?
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserReq {

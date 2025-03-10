@@ -28,11 +28,11 @@ public class User implements UserDetails {
     private Long id;
 
     @NotBlank
-    @Size(min = 3, max=40)
+    @Size(min = 3, max = 40)
     private String firstName;
 
     @NotBlank
-    @Size(min = 3, max=60)
+    @Size(min = 3, max = 60)
     private String lastName;
     @NotEmpty
     @Email
@@ -40,7 +40,7 @@ public class User implements UserDetails {
     private String email;
 
     @NotBlank
-    @Size(min=3)
+    @Size(min = 3)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -68,7 +68,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority( "ROLE_" + role.name() ) );
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override
@@ -96,11 +96,10 @@ public class User implements UserDetails {
         return true;
     }
 
-    public enum Role{
+    public enum Role {
         USER,
         ADMIN,  // Only Admin can delete Users
     }
-
 
 
     @Override

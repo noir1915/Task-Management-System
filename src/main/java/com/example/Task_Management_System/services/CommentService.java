@@ -67,7 +67,7 @@ public class CommentService {
         }
 
         fromDB.setContent(newComment.getContent());
-        fromDB.setUpdated(new Date());
+        fromDB.setUpdatedAt(new Date());
 
         return repository.save(fromDB).getId();
     }
@@ -87,7 +87,7 @@ public class CommentService {
         newComment.setTask(task);
         newComment.setContent(comment.getContent());
         newComment.setAuthor(author);
-        newComment.setCreated(new Date());
+        newComment.setCreatedAt(new Date());
 
         return repository.saveAndFlush(newComment);
     }
@@ -120,8 +120,8 @@ public class CommentService {
         CommentResp resp = new CommentResp();
         resp.setId(comment.getId());
         resp.setContent(comment.getContent());
-        resp.setCreatedAt(this.toLocalDateTime(comment.getCreated()));
-        resp.setUpdatedAt(this.toLocalDateTime(comment.getUpdated()));
+        resp.setCreatedAt(this.toLocalDateTime(comment.getCreatedAt()));
+        resp.setUpdatedAt(this.toLocalDateTime(comment.getUpdatedAt()));
         if (Hibernate.isInitialized(comment.getAuthor())) {
             User author = comment.getAuthor();
             resp.setAuthor("id: " + author.getId()

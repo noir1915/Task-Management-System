@@ -61,7 +61,7 @@ public class Task {
     private List<Comment> comments = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
+    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
@@ -115,12 +115,12 @@ public class Task {
             return false;
         Task task = (Task) o;
         return Objects.equals(this.author.getId(), task.author.getId()) &&
-                Objects.equals(this.created, task.getCreated());
+                Objects.equals(this.createdAt, task.getCreatedAt());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.authorId, created);  // this.author.getId()
+        return Objects.hash(this.authorId, createdAt);  // this.author.getId()
     }
 
     @Override
@@ -133,7 +133,7 @@ public class Task {
                 "priority = " + priority + ", " +
                 "author = " + authorId + ", " +  //  author.getId()
                 "executor = " + executorId + ", " + // (executor != null ? executor.getId() : null)
-                "created = " + created + ", " +
+                "createdAt = " + createdAt + ", " +
                 "updatedAt = " + updatedAt + ")";
     }
 }

@@ -41,10 +41,10 @@ public class Comment {
 
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
-    private Date created;
+    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updated;
+    private Date updatedAt;
 
     public void setAuthor(User author) {
         author.getComments().add(this);
@@ -64,12 +64,12 @@ public class Comment {
         Comment comment = (Comment) o;
         return Objects.equals(this.author.getId(), comment.author.getId()) &&  // author.getId() or authorId
                 Objects.equals(this.content, comment.getContent()) &&
-                Objects.equals(created, comment.getCreated());
+                Objects.equals(createdAt, comment.getCreatedAt());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authorId, content, created);
+        return Objects.hash(authorId, content, createdAt);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class Comment {
         return Hibernate.getClass(this).getSimpleName() + "(" +
                 "id = " + id + ", " +
                 "content = " + content + ", " +
-                "created = " + created + ", " +
+                "createdAt = " + createdAt + ", " +
                 "authorId = " + authorId + ", " + // (author != null ? author.getId() : null) or authorId
                 "taskId = " + taskId + ", " +  // (task != null ? task.getId() : null) or taskId
                 ")";
