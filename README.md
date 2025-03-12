@@ -24,26 +24,25 @@ UI по адресу: http://localhost:8080/swagger-ui/index.html.
 Реализовано кеширование некоторых частых и ресурсоёмких запросов.<br/>
 ## Запуск:
 С помощью Maven (в системе должна быть установлена PostgreSQL):
-./mvnw spring-boot:run
+<br/>./mvnw spring-boot:run
 <br/>С помощью Docker compose (в системе должен быть установлен Maven, а 
 также установлен и запущен Docker):
-mvn package -DskipTests
-docker-compose up
+<br/>mvn package -DskipTests
+<br/>docker-compose up
 После запуска приложения переходим на HTTP endpoint http://localhost:8080/swagger-ui/index.html. 
 На странице логина вводим данные одного из пользователей, описанных ниже, и получаем в ответе 
 JWT токен, который необходимо добавить в форме авторизации.
 
 В системе для демонстрации зарегистрировано 2 пользователя со следующими реквизитами:
 
-email: adm@site.com, password: 123, role: ADMIN, id: 1
-email: user@site.com, password: 123, role: USER, id: 2
+<br/>email: adm@site.com, password: 123, role: ADMIN, id: 1
+<br/>email: user@site.com, password: 123, role: USER, id: 2
 Только пользователь с ролью ADMIN имеет права на удаление любых других пользователей в системе.
 
-URL, доступные без авторизации: http://localhost:8080/users - демонстрирует список всех 
-зарегистрированных пользователей http://localhost:8080/users/login - позволяет пользователю 
+URL, доступные без авторизации: <br/>http://localhost:8080/users - демонстрирует список всех 
+зарегистрированных пользователей: <br/>http://localhost:8080/users/login - позволяет пользователю 
 авторизоваться и получить JWT токен, который впоследствии должен при каждом запросе отправлен 
-в HTTP заголовке "Authorization Bearer "+токен. http://localhost:8080/users/register - позволяет 
+в HTTP заголовке "Authorization Bearer "+токен. <br/>http://localhost:8080/users/register - позволяет 
 зарегистрировать нового пользователя в системе.
-
-Также в системе для демонстрации присутсвует 2 задачи, автором которых является первый 
+<br/>Также в системе для демонстрации присутсвует 2 задачи, автором которых является первый 
 пользователь с id=1, и 2 комментария к ним.
