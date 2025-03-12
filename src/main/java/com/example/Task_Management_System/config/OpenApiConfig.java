@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
                         email = "DSBerlow@mail.ru",
                         url = "https://noir1915.org"
                 ),
-                description = "Документация для Системы управления задачами",
+                description = "Описание для системы управления задачами",
                 title = "Система управления задачами",
                 version = "0.0.1"
         )

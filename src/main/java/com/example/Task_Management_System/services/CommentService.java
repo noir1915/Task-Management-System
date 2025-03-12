@@ -3,6 +3,7 @@ package com.example.Task_Management_System.services;
 import com.example.Task_Management_System.dto.CommentReq;
 import com.example.Task_Management_System.dto.CommentResp;
 import com.example.Task_Management_System.exception.CustomPermissionException;
+import com.example.Task_Management_System.exception.ResourceNotFoundException;
 import com.example.Task_Management_System.model.Comment;
 import com.example.Task_Management_System.model.Task;
 import com.example.Task_Management_System.model.User;
@@ -37,7 +38,7 @@ public class CommentService {
 
     public Comment deleteOne(Long id, Authentication auth) {
         Comment comment = repository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("There is no Comment with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("There is no Comment with id: " + id));
         Long authorId = comment.getAuthorId();
 
         // Only User-Author can delete Comment
@@ -77,11 +78,10 @@ public class CommentService {
             @CacheEvict(value = "user_resp", key = "#result.author.id")
     })
     public Comment create(CommentReq comment, Authentication auth) {
-        // Only Logged User can create a Comment
         Long userId = this.extractUserId(auth);
         User author = userRepository.getReferenceById(userId);
         Task task = taskRepository.findById(comment.getTaskId()).orElseThrow(
-                () -> new NoSuchElementException("There is no Task with taskId: " + comment.getTaskId())
+                () -> new ResourceNotFoundException("There is no Task with taskId: " + comment.getTaskId())
         );
         Comment newComment = new Comment();
         newComment.setTask(task);

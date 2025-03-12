@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -41,35 +42,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring(7);
-
-        // passing JwtExceptions to MyAuthenticationEntryPoint (we can rethrow here to see them in debug console)
         String email = null;
+
         try {
             email = jwtService.extractUserEmail(token);
         } catch (Exception e) {
-            request.setAttribute("jwt_exception", e.getMessage());
+            // Логируем исключение для дальнейшего анализа
+            logger.warn("JWT exception: {} " + e.getMessage());
         }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            UsernamePasswordAuthenticationToken authenticationToken = createAuthenticationToken(userDetails, request);
 
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
-
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails,
-                    null,
-                    userDetails.getAuthorities()
-            );
-
-            authenticationToken.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request)
-            );
-
-            SecurityContext context = this.securityContextHolderStrategy.createEmptyContext();
+            SecurityContext context = securityContextHolderStrategy.createEmptyContext();
             context.setAuthentication(authenticationToken);
-            this.securityContextHolderStrategy.setContext(context);
+            securityContextHolderStrategy.setContext(context);
         }
 
         filterChain.doFilter(request, response);
+    }
 
+    private UsernamePasswordAuthenticationToken createAuthenticationToken(UserDetails userDetails, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                userDetails.getAuthorities()
+        );
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        return authenticationToken;
     }
 }

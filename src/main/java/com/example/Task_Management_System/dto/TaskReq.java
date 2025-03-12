@@ -1,6 +1,5 @@
 package com.example.Task_Management_System.dto;
 
-import com.example.Task_Management_System.model.Task.Priority;
 import com.example.Task_Management_System.model.Task;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

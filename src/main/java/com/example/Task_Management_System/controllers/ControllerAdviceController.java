@@ -20,7 +20,7 @@ public class ControllerAdviceController {
             PropertyReferenceException.class,
             UsernameNotFoundException.class,
             CustomPermissionException.class})
-    public ResponseEntity<String> handleBadCredentialsException(RuntimeException ex){
+    public ResponseEntity<String> handleBadCredentialsException(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).contentType(MediaType.TEXT_PLAIN).body(ex.getMessage());
     }
 

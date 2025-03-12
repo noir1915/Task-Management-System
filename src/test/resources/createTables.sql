@@ -55,7 +55,6 @@ ALTER TABLE comment
 ALTER TABLE comment
     ADD CONSTRAINT FK_COMMENT_ON_TASK FOREIGN KEY (task_id) REFERENCES task (id);
 
--- NEXTVAL('user_table_seq')
 
 insert into user_table
 (email, first_name, last_name, password, role, id)

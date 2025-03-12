@@ -18,7 +18,6 @@ public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-        // attribute added in JwtAuthenticationFilter
         if (request.getAttribute("jwt_exception") != null) {
             response.getOutputStream().println("{ \"error\": \"" + request.getAttribute("jwt_exception") + "\" }");
         } else {

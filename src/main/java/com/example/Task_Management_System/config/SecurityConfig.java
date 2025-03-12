@@ -22,29 +22,27 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        // exception handling customization
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.exceptionHandling((exceptionHandling) ->
-                        exceptionHandling
-                                .authenticationEntryPoint(new MyAuthenticationEntryPoint())
-//                                .accessDeniedPage("/users/access-denied")
-                );
+                exceptionHandling
+                        .authenticationEntryPoint(new MyAuthenticationEntryPoint())
+        );
 
         return http.csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(authorize ->
-                    authorize
-                            .requestMatchers("/users",
-                                    "/users/login",
-                                    "/users/register",
-                                    "/swagger-ui.html", "/swagger-ui/**",
-                                    "/swagger-resources", "/swagger-resources/**",
-                                    "/configuration/ui", "configuration/security",
-                                    "/v3/api-docs", "/v3/api-docs/**",
-                                    "/webjars/**").permitAll()
-                            .requestMatchers("/users/*/delete").hasRole("ADMIN")
-                            .anyRequest().authenticated()
-            )
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize ->
+                        authorize
+                                .requestMatchers("/users",
+                                        "/users/login",
+                                        "/users/register",
+                                        "/swagger-ui.html", "/swagger-ui/**",
+                                        "/swagger-resources", "/swagger-resources/**",
+                                        "/configuration/ui", "configuration/security",
+                                        "/v3/api-docs", "/v3/api-docs/**",
+                                        "/webjars/**").permitAll()
+                                .requestMatchers("/users/*/delete").hasRole("ADMIN")
+                                .anyRequest().authenticated()
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

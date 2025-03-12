@@ -1,0 +1,28 @@
+services:
+  db:
+    container_name: pg_ # нужно другое имя если такое уже есть в докере(в контейнерах)
+    image: postgres:16.1-alpine3.19
+    environment:
+      POSTGRES_DB: managementDB
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+    ports:
+      - "5431:5432"
+    restart: no
+
+  app:
+    build: .
+    container_name: tms_
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      PG_HOST: db
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASS: root
+    #expose:
+    #  - "8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+

@@ -87,10 +87,8 @@ public class DataLoader implements CommandLineRunner {
                 .build();
         Comment comment_1saved = commentRepository.save(comment_1);
         Comment comment_2saved = commentRepository.save(comment_2);
-        System.out.println("Comment_1 saved: " + comment_1saved); // null for authorId and taskId here, but DB is ok
+        System.out.println("Comment_1 saved: " + comment_1saved);
         System.out.println("Comment_2 saved: " + comment_2saved);
 
-//        userRepository.save(savedAdmin);
-//        userRepository.save(savedUser);
     }
 }

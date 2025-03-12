@@ -124,7 +124,7 @@ public class TaskService {
             @CacheEvict(value = "user_resp", condition = "#result.executorId ne null", key = "#result.executorId"),
             @CacheEvict(value = "user_resp", key = "#result.authorId")
     })
-    public Task deleteTask(Long id, Authentication auth) {
+    public void deleteTask(Long id, Authentication auth) {
         Task task = repository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("There is no Task with id: " + id));
 
@@ -140,7 +140,6 @@ public class TaskService {
         // update Task DB
         repository.deleteById(id);
 
-        return task;    // for caching purpose only
     }
 
     @Transactional

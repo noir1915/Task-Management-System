@@ -123,7 +123,6 @@ public class UserController {
             }
     )
     @SecurityRequirement(name = "JWT Bearer")
-//    @Hidden
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         UserResp response = service.getById(id);
