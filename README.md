@@ -19,15 +19,15 @@
 Для реализации аутентификации и авторизации используется Spring Security.
 Реализовано кеширование некоторых частых и ресурсоёмких запросов.<br/>
 ## Запуск:
-С помощью Maven (в системе должна быть установлена PostgreSQL):
+С помощью Maven (в системе должна быть установлена PostgreSQL):<br/>
 
-**./mvnw spring-boot:run**
+**./mvnw spring-boot:run**<br/>
 С помощью Docker compose (в системе должен быть установлен Maven, а также установлен и запущен Docker):
 
-**mvn package -DskipTests**
+**mvn package -DskipTests**<br/>
 
-**docker-compose up --build**
-После запуска приложения переходим на HTTP endpoint
+**docker-compose up --build**<br/>
+После запуска приложения переходим на HTTP endpoint<br/>
 
 **http://localhost:8080/swagger-ui/index.html** 
 
