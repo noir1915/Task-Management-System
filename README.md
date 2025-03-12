@@ -27,7 +27,7 @@
     mvn package -DskipTests
 
     docker-compose up --build
-После запуска приложения переходим на HTTP endpoint<br/>
+После запуска приложения переходим на HTTP endpoint:<br/>
 
     http://localhost:8080/swagger-ui/index.html
 
