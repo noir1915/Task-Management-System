@@ -21,12 +21,12 @@
 ## Запуск:
 С помощью Maven (в системе должна быть установлена PostgreSQL):<br/>
 
-    ./mvnw spring-boot:run**<br/>
+    ./mvnw spring-boot:run
 С помощью Docker-compose (в системе должен быть установлен Maven, а также установлен и запущен Docker):
 
-    mvn package -DskipTests**<br/>
+    mvn package -DskipTests
 
-    docker-compose up --build**<br/>
+    docker-compose up --build
 После запуска приложения переходим на HTTP endpoint<br/>
 
     http://localhost:8080/swagger-ui/index.html
