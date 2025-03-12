@@ -29,7 +29,7 @@ UI по адресу: http://localhost:8080/swagger-ui/index.html.
 также установлен и запущен Docker):
 <br/>mvn package -DskipTests
 <br/>docker-compose up
-После запуска приложения переходим на HTTP endpoint http://localhost:8080/swagger-ui/index.html. 
+После запуска приложения переходим на HTTP endpoint <br/>http://localhost:8080/swagger-ui/index.html. 
 На странице логина вводим данные одного из пользователей, описанных ниже, и получаем в ответе 
 JWT токен, который необходимо добавить в форме авторизации.
 
