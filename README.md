@@ -21,15 +21,15 @@
 ## Запуск:
 С помощью Maven (в системе должна быть установлена PostgreSQL):<br/>
 
-**./mvnw spring-boot:run**<br/>
+    ./mvnw spring-boot:run**<br/>
 С помощью Docker compose (в системе должен быть установлен Maven, а также установлен и запущен Docker):
 
-**mvn package -DskipTests**<br/>
+    mvn package -DskipTests**<br/>
 
     docker-compose up --build**<br/>
 После запуска приложения переходим на HTTP endpoint<br/>
 
-**http://localhost:8080/swagger-ui/index.html** 
+    http://localhost:8080/swagger-ui/index.html
 
 На странице логина вводим данные одного из пользователей, описанных ниже, и получаем в ответе 
 JWT токен, который необходимо добавить в форме авторизации.
