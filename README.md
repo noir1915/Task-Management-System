@@ -21,11 +21,11 @@ UI по адресу: http://localhost:8080/swagger-ui/index.html.
 контроллеров UserController и TaskController.
 <br/>10. Использован язык Java 17, Spring, Spring Boot. В качестве БД используется PostgreSQL. 
 Для реализации аутентификации и авторизации используется Spring Security.
-Реализовано кеширование некоторых частых и ресурсоёмких запросов.
-Запуск:
+Реализовано кеширование некоторых частых и ресурсоёмких запросов.<br/>
+## Запуск:
 С помощью Maven (в системе должна быть установлена PostgreSQL):
 ./mvnw spring-boot:run
-С помощью Docker compose (в системе должен быть установлен Maven, а 
+<br/>С помощью Docker compose (в системе должен быть установлен Maven, а 
 также установлен и запущен Docker):
 mvn package -DskipTests
 docker-compose up
